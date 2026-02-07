@@ -123,12 +123,9 @@ const Navbar = () => {
                 {links}
               </ul>
             </div>
-            <Link
-              to={"/"}
-              className="btn btn-ghost text-[24px] text-primary font-bold"
-            >
+            <div>
               <Logo />
-            </Link>
+            </div>
           </div>
 
           <div className="navbar-end gap-3">

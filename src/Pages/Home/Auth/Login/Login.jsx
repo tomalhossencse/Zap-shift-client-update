@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 const Login = () => {
   const { signInUser } = useAuth();
   const location = useLocation();
+  console.log("location in login page", location);
   const navigate = useNavigate();
   const {
     register,
@@ -26,7 +27,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate(location.state || "/");
+        navigate(location?.state || "/");
       })
       .catch((error) => {
         Swal.fire({
@@ -87,7 +88,11 @@ const Login = () => {
           </fieldset>
           <p className="text-center">
             New to ZapShift{" "}
-            <Link to={"/register"} className="text-blue-600">
+            <Link
+              state={location?.state}
+              to={"/register"}
+              className="text-blue-600"
+            >
               Register
             </Link>
           </p>

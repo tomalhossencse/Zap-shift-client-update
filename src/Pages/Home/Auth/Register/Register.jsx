@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  console.log("register", location);
   const { registerUser, updateUserProfile } = useAuth();
   const {
     register,
@@ -149,7 +150,11 @@ const Register = () => {
           </fieldset>
           <p className="text-center">
             Already have an Account{" "}
-            <Link to={"/login"} className="text-blue-600">
+            <Link
+              to={"/login"}
+              state={location?.state}
+              className="text-blue-600"
+            >
               Login
             </Link>
           </p>

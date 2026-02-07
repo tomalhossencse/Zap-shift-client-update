@@ -18,7 +18,7 @@ const SocialLogin = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate(location.state || "/");
+        navigate(location?.state || "/");
       })
       .catch((error) => {
         Swal.fire({
