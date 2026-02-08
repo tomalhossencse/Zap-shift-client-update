@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import Container from "../../Utility/Container";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
@@ -18,10 +18,14 @@ const SendParcel = () => {
   const serviceCenters = useLoaderData();
   console.log(serviceCenters);
 
-  const regionsDuplicate = serviceCenters.map((c) => c.region);
+  //   const regionsDuplicate = serviceCenters.map((c) => c.region);
 
-  const regions = [...new Set(regionsDuplicate)];
-  console.log("regions", regions);
+  //   const regions = [...new Set(regionsDuplicate)];
+  //   console.log("regions", regions);
+
+  const regions = useMemo(() => {
+    return [...new Set(serviceCenters.map((c) => c.region))];
+  }, [serviceCenters]);
 
   const senderRegion = watch("senderRegion");
   const receiverRegion = watch("receiverRegion");
