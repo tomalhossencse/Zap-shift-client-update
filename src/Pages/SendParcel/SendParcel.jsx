@@ -3,9 +3,12 @@ import Container from "../../Utility/Container";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
+import useAxios from "../../hooks/useAxios";
 
 const SendParcel = () => {
   const { user } = useAuth();
+  const axiosSecure = useAxios();
 
   const {
     register,
@@ -78,6 +81,26 @@ const SendParcel = () => {
       }
     }
     data.cost = cost;
+
+    Swal.fire({
+      title: "Agree with the delivery cost",
+      text: `You will be Charged ${cost} taka !`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes,Agree!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.post("/parcels", data).then((res) => console.log(res.data));
+        // send data
+        // Swal.fire({
+        //   title: "Deleted!",
+        //   text: "Your file has been deleted.",
+        //   icon: "success",
+        // });
+      }
+    });
     console.log("sendParcel data after submit", data);
   };
   return (
