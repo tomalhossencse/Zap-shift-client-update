@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 const Login = () => {
   const { signInUser } = useAuth();
   const location = useLocation();
-  console.log("location in login page", location);
+  //   console.log("location in login page", location);
   const navigate = useNavigate();
   const {
     register,
