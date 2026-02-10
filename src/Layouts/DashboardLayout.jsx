@@ -1,13 +1,14 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
-
+import { LuTruck } from "react-icons/lu";
+import logo from "../assets/logo.png";
 const DashboardLayout = () => {
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open bg-base-200">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-        <nav className="navbar w-full bg-base-300">
+        <nav className="navbar w-full bg-base-100">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
@@ -41,9 +42,16 @@ const DashboardLayout = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-20 is-drawer-open:w-64">
+        <div className="flex min-h-full flex-col items-start bg-base-100 is-drawer-close:w-20 is-drawer-open:w-64">
+          {/* Logo */}
+          <Link to={"/"} className="p-6 w-full flex items-end relative">
+            <img src={logo} alt="ZapShift" />
+            <h3 className="absolute left-12 text-3xl font-extrabold text-secondary  is-drawer-close:hidden">
+              ZapShift
+            </h3>
+          </Link>
           {/* Sidebar content here */}
-          <ul className="menu w-full grow">
+          <ul className="menu w-full grow pl-4">
             {/* List item */}
             <li>
               <Link
@@ -72,7 +80,14 @@ const DashboardLayout = () => {
             {/* dashboard links */}
 
             <li>
-              <NavLink to="/dashboard/my-parcels">My Parcels</NavLink>
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="My Parcels"
+                to="/dashboard/my-parcels"
+              >
+                <LuTruck />
+                <span className="is-drawer-close:hidden"> My Parcels</span>
+              </NavLink>
             </li>
 
             {/* List item */}
