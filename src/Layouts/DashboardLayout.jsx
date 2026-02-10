@@ -1,8 +1,16 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
-import { LuLayoutDashboard, LuTruck } from "react-icons/lu";
+import {
+  LuCircleHelp,
+  LuLayoutDashboard,
+  LuLogOut,
+  LuSettings,
+  LuTruck,
+} from "react-icons/lu";
 import logo from "../assets/logo.png";
+import useLogout from "../hooks/useLogout";
 const DashboardLayout = () => {
+  const handleLogout = useLogout();
   return (
     <div className="drawer lg:drawer-open bg-base-200">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -60,39 +68,99 @@ const DashboardLayout = () => {
               {/* dashboard links */}
               <ul className="menu w-full p-0 gap-1">
                 {/* dashboard home */}
-                <NavLink
-                  to="/dashboard"
-                  end
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                      isActive
-                        ? "bg-[#C4E538] text-gray-900 font-medium"
-                        : "text-gray-600 hover:bg-gray-100"
-                    } is-drawer-close:tooltip is-drawer-close:tooltip-right`
-                  }
-                  data-tip="Dashboard"
-                >
-                  <LuLayoutDashboard className="text-xl" />
-                  <span className="is-drawer-close:hidden">Dashboard</span>
-                </NavLink>
 
+                <li>
+                  <NavLink
+                    to="/dashboard"
+                    end
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                        isActive
+                          ? "bg-[#C4E538] text-gray-900 font-medium"
+                          : "text-gray-600 hover:bg-gray-100"
+                      } is-drawer-close:tooltip is-drawer-close:tooltip-right`
+                    }
+                    data-tip="Dashboard"
+                  >
+                    <LuLayoutDashboard className="text-xl" />
+                    <span className="is-drawer-close:hidden">Dashboard</span>
+                  </NavLink>
+                </li>
                 {/* my parcels */}
 
-                <NavLink
-                  to="/dashboard/my-parcels"
-                  end
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                      isActive
-                        ? "bg-[#C4E538] text-gray-900 font-medium"
-                        : "text-gray-600 hover:bg-gray-100"
-                    } is-drawer-close:tooltip is-drawer-close:tooltip-right`
-                  }
-                  data-tip="My Parcels"
-                >
-                  <LuTruck className="text-xl" />
-                  <span className="is-drawer-close:hidden">My Parcels</span>
-                </NavLink>
+                <li>
+                  <NavLink
+                    to="/dashboard/my-parcels"
+                    end
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                        isActive
+                          ? "bg-[#C4E538] text-gray-900 font-medium"
+                          : "text-gray-600 hover:bg-gray-100"
+                      } is-drawer-close:tooltip is-drawer-close:tooltip-right`
+                    }
+                    data-tip="My Parcels"
+                  >
+                    <LuTruck className="text-xl" />
+                    <span className="is-drawer-close:hidden">My Parcels</span>
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+
+            {/* General Section */}
+
+            <div>
+              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-3 px-3 is-drawer-close:hidden">
+                Menu
+              </h3>
+
+              <ul className="menu w-full p-0 gap-1">
+                {/* Settings */}
+                <li>
+                  <NavLink
+                    to="/dashboard/settings"
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                        isActive
+                          ? "bg-[#C4E538] text-gray-900 font-medium"
+                          : "text-gray-600 hover:bg-gray-100"
+                      } is-drawer-close:tooltip is-drawer-close:tooltip-right`
+                    }
+                    data-tip="Settings"
+                  >
+                    <LuSettings className="text-xl" />
+                    <span className="is-drawer-close:hidden">Settings</span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/dashboard/help"
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                        isActive
+                          ? "bg-[#C4E538] text-gray-900 font-medium"
+                          : "text-gray-600 hover:bg-gray-100"
+                      } is-drawer-close:tooltip is-drawer-close:tooltip-right`
+                    }
+                    data-tip="Help"
+                  >
+                    <LuCircleHelp className="text-xl" />
+                    <span className="is-drawer-close:hidden">Help</span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-start gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Logout"
+                  >
+                    <LuLogOut className="text-xl" />
+                    <span className="is-drawer-close:hidden">Logout</span>
+                  </button>
+                </li>
               </ul>
             </div>
           </div>

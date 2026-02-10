@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Container from "../../Utility/Container";
-import { Link, NavLink } from "react-router";
+import { NavLink } from "react-router";
 import Logo from "../../Components/Logo/Logo";
 import useAuth from "../../hooks/useAuth";
 import User from "../User/User";

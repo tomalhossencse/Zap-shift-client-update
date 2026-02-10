@@ -1,36 +1,16 @@
 import React from "react";
-import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import { FaUser } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router";
-import { IoLogIn, IoLogOut } from "react-icons/io5";
+import { Link } from "react-router";
+import { IoLogIn } from "react-icons/io5";
 import { MdOutlineElectricBike } from "react-icons/md";
+import { LuLogOut } from "react-icons/lu";
+import useLogout from "../../hooks/useLogout";
 
 const User = () => {
-  const { logOut, user } = useAuth();
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    logOut()
-      .then(() => {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Logout Succesfully!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate("/login");
-      })
-      .catch((error) => {
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: error.message,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
-  };
+  const { user } = useAuth();
+  const handleLogout = useLogout();
+
   return (
     <div>
       {user ? (
@@ -66,7 +46,7 @@ const User = () => {
                 onClick={handleLogout}
                 className="btn-xs bg-primary text-white font-bold text-md rounded-md shadow-md hover:bg-black transition-transform hover:scale-105"
               >
-                <IoLogOut /> Logout
+                <LuLogOut className="text-lg" /> Logout
               </button>
             </li>
           </ul>
