@@ -50,7 +50,7 @@ const DashboardLayout = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="flex min-h-full flex-col items-start bg-base-100 is-drawer-close:w-20 is-drawer-open:w-64">
+        <div className="flex min-h-full flex-col items-start bg-base-100 is-drawer-close:w-20 is-drawer-open:w-64 dark:bg-gray-900">
           {/* Logo */}
           <Link to={"/"} className="p-6 w-full flex items-end relative">
             <img src={logo} alt="ZapShift" />
@@ -62,7 +62,7 @@ const DashboardLayout = () => {
           <div className="flex flex-col w-full grow gap-6 px-4">
             {/* menu section */}
             <div>
-              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-3 px-3 is-drawer-close:hidden">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-3 px-3 is-drawer-close:hidden dark:text-gray-400">
                 Menu
               </h3>
               {/* dashboard links */}
@@ -77,7 +77,7 @@ const DashboardLayout = () => {
                       `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                         isActive
                           ? "bg-[#C4E538] text-gray-900 font-medium"
-                          : "text-gray-600 hover:bg-gray-100"
+                          : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                       } is-drawer-close:tooltip is-drawer-close:tooltip-right`
                     }
                     data-tip="Dashboard"
@@ -96,7 +96,7 @@ const DashboardLayout = () => {
                       `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                         isActive
                           ? "bg-[#C4E538] text-gray-900 font-medium"
-                          : "text-gray-600 hover:bg-gray-100"
+                          : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                       } is-drawer-close:tooltip is-drawer-close:tooltip-right`
                     }
                     data-tip="My Parcels"
@@ -111,8 +111,8 @@ const DashboardLayout = () => {
             {/* General Section */}
 
             <div>
-              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-3 px-3 is-drawer-close:hidden">
-                Menu
+              <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-3 px-3 is-drawer-close:hidden">
+                General
               </h3>
 
               <ul className="menu w-full p-0 gap-1">
@@ -124,7 +124,7 @@ const DashboardLayout = () => {
                       `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                         isActive
                           ? "bg-[#C4E538] text-gray-900 font-medium"
-                          : "text-gray-600 hover:bg-gray-100"
+                          : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                       } is-drawer-close:tooltip is-drawer-close:tooltip-right`
                     }
                     data-tip="Settings"
@@ -141,7 +141,7 @@ const DashboardLayout = () => {
                       `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                         isActive
                           ? "bg-[#C4E538] text-gray-900 font-medium"
-                          : "text-gray-600 hover:bg-gray-100"
+                          : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                       } is-drawer-close:tooltip is-drawer-close:tooltip-right`
                     }
                     data-tip="Help"
@@ -154,7 +154,7 @@ const DashboardLayout = () => {
                 <li>
                   <button
                     onClick={handleLogout}
-                    className="flex items-start gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Logout"
                   >
                     <LuLogOut className="text-xl" />
