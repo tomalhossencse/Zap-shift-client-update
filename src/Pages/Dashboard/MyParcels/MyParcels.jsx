@@ -2,7 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import useAxios from "../../../hooks/useAxios";
-
+import { FiEdit } from "react-icons/fi";
+import { FaEye } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 const MyParcels = () => {
   const { user } = useAuth();
 
@@ -39,7 +41,19 @@ const MyParcels = () => {
                   <th>{index + 1}</th>
                   <td>{parcel?.parcelName}</td>
                   <td>{parcel?.cost} tk</td>
-                  <td>Blue</td>
+                  <td className="space-x-4">
+                    <button className="btn btn-square">
+                      <FiEdit />
+                    </button>
+
+                    <button className="btn btn-square">
+                      <FaEye />
+                    </button>
+
+                    <button className="btn btn-square">
+                      <RiDeleteBin6Line />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
