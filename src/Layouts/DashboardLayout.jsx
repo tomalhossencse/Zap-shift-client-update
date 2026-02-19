@@ -74,10 +74,8 @@ const DashboardLayout = () => {
                     to="/dashboard"
                     end
                     className={({ isActive }) =>
-                      `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                        isActive
-                          ? "bg-[#C4E538] text-gray-900 font-medium"
-                          : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      `sidebar-link ${
+                        isActive ? "active" : ""
                       } is-drawer-close:tooltip is-drawer-close:tooltip-right`
                     }
                     data-tip="Dashboard"
@@ -93,10 +91,8 @@ const DashboardLayout = () => {
                     to="/dashboard/my-parcels"
                     end
                     className={({ isActive }) =>
-                      `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                        isActive
-                          ? "bg-[#C4E538] text-gray-900 font-medium"
-                          : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      `sidebar-link ${
+                        isActive ? "active" : ""
                       } is-drawer-close:tooltip is-drawer-close:tooltip-right`
                     }
                     data-tip="My Parcels"
@@ -121,10 +117,8 @@ const DashboardLayout = () => {
                   <NavLink
                     to="/dashboard/settings"
                     className={({ isActive }) =>
-                      `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                        isActive
-                          ? "bg-[#C4E538] text-gray-900 font-medium"
-                          : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      `sidebar-link ${
+                        isActive ? "active" : ""
                       } is-drawer-close:tooltip is-drawer-close:tooltip-right`
                     }
                     data-tip="Settings"
@@ -138,10 +132,8 @@ const DashboardLayout = () => {
                   <NavLink
                     to="/dashboard/help"
                     className={({ isActive }) =>
-                      `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                        isActive
-                          ? "bg-[#C4E538] text-gray-900 font-medium"
-                          : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      `sidebar-link ${
+                        isActive ? "active" : ""
                       } is-drawer-close:tooltip is-drawer-close:tooltip-right`
                     }
                     data-tip="Help"
@@ -154,7 +146,7 @@ const DashboardLayout = () => {
                 <li>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className="sidebar-link is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Logout"
                   >
                     <LuLogOut className="text-xl" />

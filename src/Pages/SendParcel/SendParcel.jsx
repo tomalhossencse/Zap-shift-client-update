@@ -81,6 +81,7 @@ const SendParcel = () => {
       }
     }
     data.cost = cost;
+    data.createAt = new Date();
 
     Swal.fire({
       title: "Agree with the delivery cost",

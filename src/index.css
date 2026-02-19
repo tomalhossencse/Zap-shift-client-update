@@ -2,35 +2,46 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-  themes: light --default
-  , dark --prefersdark;
+themes: light --default, dark --prefersdark;
 }
+
 
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-base-200 : #EAECED;
-  --color-base-300 : #DADADA;
+  --color-base-200: #EAECED;
+  --color-base-300: #DADADA;
   --color-primary: #CAEB66;
   --color-secondary: #03373D;
-  --color-primary-content : #606060;
+  --color-primary-content: #606060;
   --color-secondary-content: #1F1F1F;
-  --color-base-300 : #e7e7e7;
+ --color-base-300: #e7e7e7;
   --color-accent: #4D4D4D;
-  --color-accent-content :#F5F7FA;
+   --color-accent-content: #F5F7FA;
 }
 
 
-body{
-    font-family: "Urbanist", sans-serif;
+body {
+  font-family: "Urbanist", sans-serif;
 }
-.title{
+
+
+.title {
   @apply text-3xl font-extrabold text-secondary;
+}
+
+.sidebar-link {
+  @apply flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800;
+}
+
+.sidebar-link.active {
+  @apply bg-[#C4E538] text-gray-900 font-medium;
 }
 
 .navbar .active {
   @apply text-secondary font-bold bg-primary rounded-2xl
 }
-  .btn-small{
+p
+.btn-small {
   @apply btn btn-sm bg-primary text-secondary rounded-md shadow-md hover:bg-black transition-transform hover:scale-105 hover:text-base-100
 }
