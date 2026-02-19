@@ -6,6 +6,7 @@ import { FiEdit } from "react-icons/fi";
 import { FaEye } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 const MyParcels = () => {
   const { user } = useAuth();
 
@@ -61,6 +62,8 @@ const MyParcels = () => {
                 <th></th>
                 <th>Name</th>
                 <th>Cost</th>
+                <th>payment</th>
+                <th>DeliveryStatus</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -70,6 +73,20 @@ const MyParcels = () => {
                   <th>{index + 1}</th>
                   <td>{parcel?.parcelName}</td>
                   <td>{parcel?.cost} tk</td>
+                  <td>
+                    {parcel.deliveryStatus === "paid" ? (
+                      <span className="text-green-500">Paid</span>
+                    ) : (
+                      <Link
+                        to={`/dashboard/payment/${parcel?._id}`}
+                        className="btn btn-primary"
+                      >
+                        Pay
+                      </Link>
+                    )}
+                  </td>
+
+                  <td>{parcels?.deliveryStatus}</td>
                   <td className="space-x-4">
                     <button className="btn btn-square">
                       <FiEdit />
