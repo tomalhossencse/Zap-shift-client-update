@@ -17,7 +17,7 @@ const Payment = () => {
     },
   });
 
-  const handlePayment = async (parcel) => {
+  const handlePayment = async () => {
     const paymentInfo = {
       cost: parcel.cost,
       parcelId: parcel._id,
@@ -38,7 +38,7 @@ const Payment = () => {
       <h1>
         Please Pay ${parcel.cost} : {parcel?.parcelName}
       </h1>
-      <button onClick={() => handlePayment(parcel)} className="btn btn-primary">
+      <button onClick={handlePayment} className="btn btn-primary">
         Pay
       </button>
     </div>
