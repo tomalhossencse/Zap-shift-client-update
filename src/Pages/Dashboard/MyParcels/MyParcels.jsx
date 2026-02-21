@@ -6,7 +6,6 @@ import { FiEdit } from "react-icons/fi";
 import { FaEye } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
-import { Link } from "react-router";
 const MyParcels = () => {
   const { user } = useAuth();
 
