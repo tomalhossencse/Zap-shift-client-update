@@ -9,6 +9,7 @@ import {
 } from "react-icons/lu";
 import logo from "../assets/logo.png";
 import useLogout from "../hooks/useLogout";
+import { MdOutlinePayments } from "react-icons/md";
 const DashboardLayout = () => {
   const handleLogout = useLogout();
   return (
@@ -99,6 +100,24 @@ const DashboardLayout = () => {
                   >
                     <LuTruck className="text-xl" />
                     <span className="is-drawer-close:hidden">My Parcels</span>
+                  </NavLink>
+                </li>
+
+                {/* payment history */}
+
+                <li>
+                  <NavLink
+                    to="/dashboard/payment-history"
+                    end
+                    className={({ isActive }) =>
+                      `sidebar-link ${
+                        isActive ? "active" : ""
+                      } is-drawer-close:tooltip is-drawer-close:tooltip-right`
+                    }
+                    data-tip="My Payments"
+                  >
+                    <MdOutlinePayments className="text-xl" />
+                    <span className="is-drawer-close:hidden">My Payments</span>
                   </NavLink>
                 </li>
               </ul>
