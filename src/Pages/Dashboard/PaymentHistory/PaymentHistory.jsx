@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import useAxios from "../../../hooks/useAxios";
+import { DateFormat } from "../../../Utility/DateFormat";
 
 const PaymentHistory = () => {
   const { user } = useAuth();
@@ -14,6 +15,7 @@ const PaymentHistory = () => {
       return res.data;
     },
   });
+
   return (
     <div>
       <h1>This payment history page</h1>
@@ -39,7 +41,10 @@ const PaymentHistory = () => {
                 <tr key={pay._id}>
                   <th>{index + 1}</th>
                   <td>{pay.parcelName}</td>
-                  <td>{pay.customerEmail}</td>
+                  <td>
+                    {pay.customerEmail}
+                    <p>PaidAt : {DateFormat(pay.paidAt)}</p>
+                  </td>
                   <td>{pay.trackingId}</td>
                   <td>{pay.amount} tk</td>
                   <td>

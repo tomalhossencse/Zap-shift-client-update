@@ -2,15 +2,17 @@ import React from "react";
 import useAuth from "../../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router";
+import useAxios from "../../../../hooks/useAxios";
 
 const SocialLogin = () => {
   const { googleSignIn } = useAuth();
+  const axiosSecure = useAxios();
   const location = useLocation();
   const navigate = useNavigate();
   const handleGoogleSign = () => {
     googleSignIn()
       .then((res) => {
-        console.log(res.user);
+        // console.log(res.user);
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -18,7 +20,16 @@ const SocialLogin = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate(location?.state || "/");
+        const userInfo = {
+          email: res.user.email,
+          displayName: res.user.name,
+          photoURL: res.user.photoURL,
+        };
+
+        axiosSecure.post("/users", userInfo).then((res) => {
+          console.log("users created by social", res.data);
+          navigate(location?.state || "/");
+        });
       })
       .catch((error) => {
         Swal.fire({

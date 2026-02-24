@@ -5,12 +5,14 @@ import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxios from "../../../../hooks/useAxios";
 
 const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
   console.log("register", location);
   const { registerUser, updateUserProfile } = useAuth();
+  const axiosSecure = useAxios();
   const {
     register,
     handleSubmit,
@@ -23,8 +25,8 @@ const Register = () => {
     const name = data.name;
 
     registerUser(email, password)
-      .then((res) => {
-        console.log(res.user);
+      .then(() => {
+        // console.log(res.user);
         // store the img and get  the photo url
 
         // 1. prepare photo for imgbb
@@ -34,12 +36,26 @@ const Register = () => {
         // 2. upload the imgBB using Axios
         const img_api_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_host}`;
         axios.post(img_api_url, formData).then((res) => {
-          console.log("after img upload", res.data.data.url);
+          // console.log("after img upload", res.data.data.url);
+
+          const photoURL = res.data.data.url;
+
+          // create user in the data base send database
+          const userInfo = {
+            email: data.email,
+            displayName: data.name,
+            photoURL: photoURL,
+          };
+          axiosSecure.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("users created");
+            }
+          });
 
           // update user profile
           const userProfile = {
             displayName: name,
-            photoURL: res.data.data.url,
+            photoURL,
           };
           updateUserProfile(userProfile)
             .then((res) => {
