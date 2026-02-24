@@ -7,6 +7,8 @@ import {
   LuSettings,
   LuTruck,
 } from "react-icons/lu";
+import { PiPersonSimpleBikeBold } from "react-icons/pi";
+
 import logo from "../assets/logo.png";
 import useLogout from "../hooks/useLogout";
 import { MdOutlinePayments } from "react-icons/md";
@@ -118,6 +120,27 @@ const DashboardLayout = () => {
                   >
                     <MdOutlinePayments className="text-xl" />
                     <span className="is-drawer-close:hidden">My Payments</span>
+                  </NavLink>
+                </li>
+
+                {/* approve riders */}
+
+                <li>
+                  <NavLink
+                    to="/dashboard/approve-riders"
+                    end
+                    className={({ isActive }) =>
+                      `sidebar-link ${
+                        isActive ? "active" : ""
+                      } is-drawer-close:tooltip is-drawer-close:tooltip-right`
+                    }
+                    data-tip="Approve Riders"
+                  >
+                    <PiPersonSimpleBikeBold className="text-xl" />
+
+                    <span className="is-drawer-close:hidden">
+                      Approve Riders
+                    </span>
                   </NavLink>
                 </li>
               </ul>

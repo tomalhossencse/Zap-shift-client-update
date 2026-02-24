@@ -4,8 +4,12 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { useLoaderData } from "react-router";
 import riderimg from "../../assets/agent-pending.png";
+import useAxios from "../../hooks/useAxios";
+import Swal from "sweetalert2";
 
 const Rider = () => {
+  const { user } = useAuth();
+  const axiosSecure = useAxios();
   const {
     handleSubmit,
     register,
@@ -14,52 +18,48 @@ const Rider = () => {
     setValue,
   } = useForm();
   const serviceCenters = useLoaderData();
-  console.log(serviceCenters);
-
-  //   const regionsDuplicate = serviceCenters.map((c) => c.region);
-
-  //   const regions = [...new Set(regionsDuplicate)];
-  //   console.log("regions", regions);
+  // console.log(serviceCenters);
 
   const regions = useMemo(() => {
     return [...new Set(serviceCenters.map((c) => c.region))];
   }, [serviceCenters]);
 
-  const senderRegion = watch("senderRegion");
-  const receiverRegion = watch("receiverRegion");
+  const riderRegion = watch("riderRegion");
 
   const districtByRegion = (region) => {
     const regionDistricts = serviceCenters.filter(
       (service) => service.region === region,
     );
     const districts = regionDistricts.map((r) => r.district);
-    console.log(districts);
+    // console.log(districts);
     return districts;
   };
 
   // sender warhouse
   useEffect(() => {
-    if (senderRegion) {
-      const districts = districtByRegion(senderRegion);
+    if (riderRegion) {
+      const districts = districtByRegion(riderRegion);
 
       if (districts.length > 0) {
         setValue("picupWarhouse", districts[0]);
       }
     }
-  }, [senderRegion]);
-  // reciever warhouse
-  useEffect(() => {
-    if (receiverRegion) {
-      const districts = districtByRegion(receiverRegion);
+  }, [riderRegion]);
 
-      if (districts.length > 0) {
-        setValue("receiverWarhouse", districts[0]);
+  const handleCreateRider = (data) => {
+    console.log("data : ", data);
+    axiosSecure.post("/riders", data).then((res) => {
+      if (res.data.insertedId) {
+        Swal.fire({
+          title: "Rider Applied!",
+          text: "Your Application has been Submitted.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
       }
-    }
-  }, [receiverRegion]);
-
-  const { user } = useAuth();
-  const handleCreateRider = () => {};
+    });
+  };
   return (
     <div>
       <Container className={"my-6 p-4 min-h-screen bg-base-100 rounded-2xl"}>
@@ -131,7 +131,7 @@ const Rider = () => {
                     <legend className="fieldset-legend">Your Region</legend>
                     <select
                       className="select w-full"
-                      {...register("senderRegion", { required: true })}
+                      {...register("riderRegion", { required: true })}
                     >
                       <option value={""} disabled>
                         Select Your Region
@@ -188,8 +188,8 @@ const Rider = () => {
                         <option value={""} disabled>
                           Select Rider Wire house
                         </option>
-                        {senderRegion &&
-                          districtByRegion(senderRegion).map(
+                        {riderRegion &&
+                          districtByRegion(riderRegion).map(
                             (district, index) => (
                               <option value={district} key={index}>
                                 {district}
