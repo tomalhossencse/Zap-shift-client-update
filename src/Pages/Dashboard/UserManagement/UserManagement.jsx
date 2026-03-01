@@ -18,16 +18,28 @@ const UserManagement = () => {
   const handleUser = (user, role) => {
     const updateInfo = { role: role };
     axiosSecure.patch(`/users/${user._id}`, updateInfo).then((res) => {
-      if (res.data.modifiedCount) {
-        refetch();
-        Swal.fire({
-          title: `${user.displayName} mark as ${role} `,
-          icon: "success",
-          showConfirmButton: false,
-          position: "top-right",
-          timer: 1500,
-        });
-      }
+      Swal.fire({
+        title: `Are sure to Change role`,
+        text: `${user.displayName} to mark as ${role}`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes,Agree!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (res.data.modifiedCount) {
+            refetch();
+            Swal.fire({
+              title: `${user.displayName} mark as ${role} `,
+              icon: "success",
+              showConfirmButton: false,
+              position: "top-right",
+              timer: 1500,
+            });
+          }
+        }
+      });
     });
   };
   return (
