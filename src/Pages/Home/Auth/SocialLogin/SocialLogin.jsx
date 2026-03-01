@@ -22,7 +22,7 @@ const SocialLogin = () => {
         });
         const userInfo = {
           email: res.user.email,
-          displayName: res.user.name,
+          displayName: res.user.displayName,
           photoURL: res.user.photoURL,
         };
 
