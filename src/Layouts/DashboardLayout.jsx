@@ -12,6 +12,7 @@ import { PiPersonSimpleBikeBold } from "react-icons/pi";
 import logo from "../assets/logo.png";
 import useLogout from "../hooks/useLogout";
 import { MdOutlinePayments } from "react-icons/md";
+import { FaUsers } from "react-icons/fa6";
 const DashboardLayout = () => {
   const handleLogout = useLogout();
   return (
@@ -140,6 +141,27 @@ const DashboardLayout = () => {
 
                     <span className="is-drawer-close:hidden">
                       Approve Riders
+                    </span>
+                  </NavLink>
+                </li>
+
+                {/* users management */}
+
+                <li>
+                  <NavLink
+                    to="/dashboard/users-mangement"
+                    end
+                    className={({ isActive }) =>
+                      `sidebar-link ${
+                        isActive ? "active" : ""
+                      } is-drawer-close:tooltip is-drawer-close:tooltip-right`
+                    }
+                    data-tip="Users Mangement"
+                  >
+                    <FaUsers className="text-xl" />
+
+                    <span className="is-drawer-close:hidden">
+                      Users Management{" "}
                     </span>
                   </NavLink>
                 </li>
