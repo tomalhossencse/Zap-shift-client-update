@@ -4,8 +4,11 @@ import useAuth from "../../../hooks/useAuth";
 import useAxios from "../../../hooks/useAxios";
 import { FiEdit } from "react-icons/fi";
 import { FaEye } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { Visibility, Delete, Edit } from "@mui/icons-material";
+// import DeleteIcon from "@mui/icons-material/Visibility";
+import IconButton from "@mui/material/IconButton";
 import Swal from "sweetalert2";
+import Button from "@mui/material/Button";
 const MyParcels = () => {
   const { user } = useAuth();
 
@@ -101,20 +104,21 @@ const MyParcels = () => {
 
                   <td>{parcels?.paymentStatus}</td>
                   <td className="space-x-4">
-                    <button className="btn btn-square">
-                      <FiEdit />
-                    </button>
+                    <IconButton>
+                      <Edit color="primary" />
+                    </IconButton>
 
-                    <button className="btn btn-square">
-                      <FaEye />
-                    </button>
+                    <IconButton>
+                      <Visibility color="secondary" />
+                    </IconButton>
 
-                    <button
+                    <IconButton
                       onClick={() => handleParcelDelete(parcel._id)}
-                      className="btn btn-square"
+                      aria-label="delete"
+                      color="error"
                     >
-                      <RiDeleteBin6Line />
-                    </button>
+                      <Delete />
+                    </IconButton>
                   </td>
                 </tr>
               ))}

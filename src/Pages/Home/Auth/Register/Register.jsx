@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
@@ -6,91 +6,81 @@ import SocialLogin from "../SocialLogin/SocialLogin";
 import axios from "axios";
 import Swal from "sweetalert2";
 import useAxios from "../../../../hooks/useAxios";
+import LoginIcon from "@mui/icons-material/Login";
+import { LoadingButton } from "@mui/lab";
 
 const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  console.log("register", location);
+  const [loading, setLoading] = useState(false);
+  // console.log("register", location);
+
   const { registerUser, updateUserProfile } = useAuth();
+
   const axiosSecure = useAxios();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const handleRegister = (data) => {
-    const email = data.email;
-    const password = data.password;
-    const photo = data.photo[0];
-    const name = data.name;
 
-    registerUser(email, password)
-      .then(() => {
-        // console.log(res.user);
-        // store the img and get  the photo url
+  const handleRegister = async (data) => {
+    try {
+      setLoading(true);
 
-        // 1. prepare photo for imgbb
-        const formData = new FormData();
-        formData.append("image", photo);
+      const { email, password, name } = data;
+      const photo = data.photo[0];
 
-        // 2. upload the imgBB using Axios
-        const img_api_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_host}`;
-        axios.post(img_api_url, formData).then((res) => {
-          // console.log("after img upload", res.data.data.url);
+      // 1. register user
+      await registerUser(email, password);
 
-          const photoURL = res.data.data.url;
+      // 2. upload img to imgbb
 
-          // create user in the data base send database
-          const userInfo = {
-            email: data.email,
-            displayName: data.name,
-            photoURL: photoURL,
-          };
-          axiosSecure.post("/users", userInfo).then((res) => {
-            if (res.data.insertedId) {
-              console.log("users created");
-            }
-          });
+      const formData = new FormData();
+      formData.append("image", photo);
 
-          // update user profile
-          const userProfile = {
-            displayName: name,
-            photoURL,
-          };
-          updateUserProfile(userProfile)
-            .then((res) => {
-              console.log(res);
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Your Profile Updated Succesfully!",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              navigate(location.state || "/");
-            })
-            .catch((error) => {
-              Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: error.message,
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              console.log(error);
-            });
-        });
-      })
-      .catch((error) => {
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: error.message,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+      const img_api_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_host}`;
+
+      const imgRes = await axios.post(img_api_url, formData);
+      const photoURL = imgRes.data.data.url;
+
+      // 3. Save user to Database
+      const userInfo = {
+        email: data.email,
+        displayName: data.name,
+        photoURL,
+      };
+
+      await axiosSecure.post("/users", userInfo);
+
+      // 4. update profile
+      const userProfile = {
+        displayName: name,
+        photoURL,
+      };
+      await updateUserProfile(userProfile);
+
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Registration Successful!",
+        showConfirmButton: false,
+        timer: 1500,
       });
-    console.log("after register : ", data.photo[0]);
+
+      navigate(location.state || "/");
+    } catch (error) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: error.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className="hero-content flex-col lg:flex-row-reverse">
@@ -162,7 +152,17 @@ const Register = () => {
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
-            <button className="btn btn-primary mt-4">Register</button>
+            <LoadingButton
+              loading={loading}
+              loadingPosition="end"
+              type="submit"
+              variant="contained"
+              endIcon={<LoginIcon />}
+              fullWidth
+              color="warning"
+            >
+              Register
+            </LoadingButton>
           </fieldset>
           <p className="text-center">
             Already have an Account{" "}

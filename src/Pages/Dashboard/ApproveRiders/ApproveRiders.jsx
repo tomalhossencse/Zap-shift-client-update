@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import Button from "@mui/material/Button";
 import useAxios from "../../../hooks/useAxios";
 import Loading from "../../../Shared/Loading/Loading";
 import { DateFormat } from "../../../Utility/DateFormat";
 import { FaTrash, FaUserCheck } from "react-icons/fa6";
 import { IoPersonRemoveSharp } from "react-icons/io5";
 import Swal from "sweetalert2";
+import Stack from "@mui/material/Stack";
 
 const ApproveRiders = () => {
   const axiosSecure = useAxios();
@@ -102,26 +104,30 @@ const ApproveRiders = () => {
                     </p>
                   </td>
                   <td>{DateFormat(rider.createAt)}</td>
-                  <td className="space-x-4">
-                    <button
-                      className="btn"
+                  <Stack spacing={2} direction={"row"}>
+                    <Button
+                      variant="contained"
+                      color="success"
                       onClick={() => handleUpdateStatus(rider, "approved")}
                     >
                       <FaUserCheck className="text-xl" />
-                    </button>
-                    <button
+                    </Button>
+
+                    <Button
+                      variant="contained"
+                      color="warning"
                       onClick={() => handleUpdateStatus(rider, "rejected")}
-                      className="btn"
                     >
                       <IoPersonRemoveSharp className="text-xl" />
-                    </button>
-                    <button
-                      className="btn"
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="error"
                       onClick={() => handleDeleteRider(rider._id)}
                     >
                       <FaTrash className="text-xl" />
-                    </button>
-                  </td>
+                    </Button>
+                  </Stack>
                 </tr>
               ))}
             </tbody>

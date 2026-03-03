@@ -1,43 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import Swal from "sweetalert2";
+import LoginIcon from "@mui/icons-material/Login";
+import { LoadingButton } from "@mui/lab";
 
 const Login = () => {
   const { signInUser } = useAuth();
   const location = useLocation();
   //   console.log("location in login page", location);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const handleLogin = (data) => {
-    console.log("form data", data);
-    signInUser(data.email, data.password)
-      .then((res) => {
-        console.log(res.user);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Login in Succesfully!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate(location?.state || "/");
-      })
-      .catch((error) => {
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: error.message,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+  const handleLogin = async (data) => {
+    try {
+      setLoading(true);
+      console.log("form data", data);
+      const res = await signInUser(data.email, data.password);
+
+      console.log(res.user);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Login in Succesfully!",
+        showConfirmButton: false,
+        timer: 1500,
       });
+      navigate(location?.state || "/");
+    } catch (error) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: error.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className="hero-content flex-col lg:flex-row-reverse">
@@ -84,7 +91,17 @@ const Login = () => {
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
-            <button className="btn btn-primary mt-4">Login</button>
+            <LoadingButton
+              loading={loading}
+              loadingPosition="end"
+              type="submit"
+              variant="contained"
+              endIcon={<LoginIcon />}
+              fullWidth
+              color="warning"
+            >
+              Login
+            </LoadingButton>
           </fieldset>
           <p className="text-center">
             New to ZapShift{" "}
