@@ -13,8 +13,13 @@ import logo from "../assets/logo.png";
 import useLogout from "../hooks/useLogout";
 import { MdOutlinePayments } from "react-icons/md";
 import { FaUsers } from "react-icons/fa6";
+import useRole from "../hooks/useRole";
 const DashboardLayout = () => {
   const handleLogout = useLogout();
+  const { role, isLoading } = useRole();
+  if (isLoading) {
+    return;
+  }
   return (
     <div className="drawer lg:drawer-open bg-base-200">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -42,7 +47,7 @@ const DashboardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4">Zapshift Dashboard</div>
+          <div className="px-4">{role} Dashboard</div>
         </nav>
         {/* Page content here */}
         <Outlet />
@@ -106,6 +111,52 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
 
+                {role === "admin" && (
+                  <>
+                    {/* approve riders */}
+
+                    <li>
+                      <NavLink
+                        to="/dashboard/approve-riders"
+                        end
+                        className={({ isActive }) =>
+                          `sidebar-link ${
+                            isActive ? "active" : ""
+                          } is-drawer-close:tooltip is-drawer-close:tooltip-right`
+                        }
+                        data-tip="Approve Riders"
+                      >
+                        <PiPersonSimpleBikeBold className="text-xl" />
+
+                        <span className="is-drawer-close:hidden">
+                          Approve Riders
+                        </span>
+                      </NavLink>
+                    </li>
+
+                    {/* users management */}
+
+                    <li>
+                      <NavLink
+                        to="/dashboard/users-mangement"
+                        end
+                        className={({ isActive }) =>
+                          `sidebar-link ${
+                            isActive ? "active" : ""
+                          } is-drawer-close:tooltip is-drawer-close:tooltip-right`
+                        }
+                        data-tip="Users Mangement"
+                      >
+                        <FaUsers className="text-xl" />
+
+                        <span className="is-drawer-close:hidden">
+                          Users Management{" "}
+                        </span>
+                      </NavLink>
+                    </li>
+                  </>
+                )}
+
                 {/* payment history */}
 
                 <li>
@@ -121,48 +172,6 @@ const DashboardLayout = () => {
                   >
                     <MdOutlinePayments className="text-xl" />
                     <span className="is-drawer-close:hidden">My Payments</span>
-                  </NavLink>
-                </li>
-
-                {/* approve riders */}
-
-                <li>
-                  <NavLink
-                    to="/dashboard/approve-riders"
-                    end
-                    className={({ isActive }) =>
-                      `sidebar-link ${
-                        isActive ? "active" : ""
-                      } is-drawer-close:tooltip is-drawer-close:tooltip-right`
-                    }
-                    data-tip="Approve Riders"
-                  >
-                    <PiPersonSimpleBikeBold className="text-xl" />
-
-                    <span className="is-drawer-close:hidden">
-                      Approve Riders
-                    </span>
-                  </NavLink>
-                </li>
-
-                {/* users management */}
-
-                <li>
-                  <NavLink
-                    to="/dashboard/users-mangement"
-                    end
-                    className={({ isActive }) =>
-                      `sidebar-link ${
-                        isActive ? "active" : ""
-                      } is-drawer-close:tooltip is-drawer-close:tooltip-right`
-                    }
-                    data-tip="Users Mangement"
-                  >
-                    <FaUsers className="text-xl" />
-
-                    <span className="is-drawer-close:hidden">
-                      Users Management{" "}
-                    </span>
                   </NavLink>
                 </li>
               </ul>

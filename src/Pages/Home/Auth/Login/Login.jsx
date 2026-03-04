@@ -26,6 +26,7 @@ const Login = () => {
       const res = await signInUser(data.email, data.password);
 
       console.log(res.user);
+      setLoading(false);
       Swal.fire({
         position: "top-end",
         icon: "success",

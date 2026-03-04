@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import useAxios from "../../../../hooks/useAxios";
 import LoginIcon from "@mui/icons-material/Login";
 import { LoadingButton } from "@mui/lab";
+import TextField from "@mui/material/TextField";
 
 const Register = () => {
   const location = useLocation();
@@ -88,13 +89,11 @@ const Register = () => {
         <h3 className="text-4xl font-black pl-6">Create an Account</h3>
         <p className="pl-8">Register with ZapShift</p>
         <form onSubmit={handleSubmit(handleRegister)} className="card-body">
-          <fieldset className="fieldset">
+          <fieldset className="fieldset gap-4">
             {/* name */}
-            <label className="label">Name</label>
-            <input
+            <TextField
+              label="Name"
               type="name"
-              className="input"
-              placeholder="Name"
               {...register("name", { required: true })}
             />
             {errors.name?.type === "required" && (
@@ -112,22 +111,18 @@ const Register = () => {
               <p className="text-red-500">Photo Required!</p>
             )}
             {/* email */}
-            <label className="label">Email</label>
-            <input
+            <TextField
               type="email"
-              className="input"
-              placeholder="Email"
+              label="Email"
               {...register("email", { required: true })}
             />
             {errors.email?.type === "required" && (
               <p className="text-red-500">Email Required!</p>
             )}
             {/* password */}
-            <label className="label">Password</label>
-            <input
+            <TextField
               type="password"
-              className="input"
-              placeholder="Password"
+              label="Password"
               {...register("password", {
                 required: true,
                 minLength: 8,
