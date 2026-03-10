@@ -5,11 +5,13 @@ import "./index.css";
 import { RouterProvider } from "react-router";
 import { router } from "./routes/router.jsx";
 import AuthProvider from "./Context/Authcontext/AuthProvider.jsx";
+import App from "./App.jsx";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    {/* <App /> */}
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <RouterProvider router={router}></RouterProvider>

@@ -1,16 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import useAxios from "../../../hooks/useAxios";
 import { DateFormat } from "../../../Utility/DateFormat";
 import { FiShield, FiShieldOff } from "react-icons/fi";
 import Swal from "sweetalert2";
 
 const UserManagement = () => {
+  const [searchText, setSearchText] = useState("");
   const axiosSecure = useAxios();
   const { data: users = [], refetch } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", searchText],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get(`/users?searchText=${searchText}`);
       return res.data;
     },
   });
@@ -44,7 +45,38 @@ const UserManagement = () => {
   };
   return (
     <div>
-      <h2 className="text-2xl">Users Management : {users.length}</h2>
+      <div className="flex justify-around items-center">
+        <h2 className="text-2xl">Users Management : {users.length}</h2>
+        <p>Search Text : {searchText}</p>
+        <div>
+          <label className="input input-lg">
+            <svg
+              className="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input
+              onChange={(e) => {
+                setSearchText(e.target.value);
+              }}
+              type="search"
+              className="grow"
+              placeholder="Search"
+            />
+          </label>
+        </div>
+      </div>
       <div className="px-6">
         <div className="bg-base-100 my-4 p-4 rounded">
           <div className="overflow-x-auto">

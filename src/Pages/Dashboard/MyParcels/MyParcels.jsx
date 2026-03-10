@@ -102,7 +102,7 @@ const MyParcels = () => {
                     )}
                   </td>
 
-                  <td>{parcels?.paymentStatus}</td>
+                  <td>{parcel?.deliveryStatus}</td>
                   <td className="space-x-4">
                     <IconButton>
                       <Edit color="primary" />

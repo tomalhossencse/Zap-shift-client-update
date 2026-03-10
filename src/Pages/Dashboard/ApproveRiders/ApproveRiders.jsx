@@ -76,6 +76,7 @@ const ApproveRiders = () => {
                 <th>Email</th>
                 <th>Location</th>
                 <th>Status</th>
+                <th>Work Status</th>
                 <th>Apply Time</th>
                 <th>Action</th>
               </tr>
@@ -103,6 +104,7 @@ const ApproveRiders = () => {
                       {rider.status}
                     </p>
                   </td>
+                  <td>{rider.workStatus}</td>
                   <td>{DateFormat(rider.createAt)}</td>
                   <Stack spacing={2} direction={"row"}>
                     <Button

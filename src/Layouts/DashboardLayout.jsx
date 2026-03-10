@@ -11,7 +11,11 @@ import { PiPersonSimpleBikeBold } from "react-icons/pi";
 
 import logo from "../assets/logo.png";
 import useLogout from "../hooks/useLogout";
-import { MdOutlinePayments } from "react-icons/md";
+import {
+  MdOutlineAssignmentReturned,
+  MdOutlinePayments,
+  MdOutlineTaskAlt,
+} from "react-icons/md";
 import { FaUsers } from "react-icons/fa6";
 import useRole from "../hooks/useRole";
 const DashboardLayout = () => {
@@ -110,7 +114,53 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">My Parcels</span>
                   </NavLink>
                 </li>
+                {/* riders only links */}
+                {role === "rider" && (
+                  <>
+                    {/* assign deliveries */}
 
+                    <li>
+                      <NavLink
+                        to="/dashboard/assign-deliveries"
+                        end
+                        className={({ isActive }) =>
+                          `sidebar-link ${
+                            isActive ? "active" : ""
+                          } is-drawer-close:tooltip is-drawer-close:tooltip-right`
+                        }
+                        data-tip="Assigned Deliveries"
+                      >
+                        <PiPersonSimpleBikeBold className="text-xl" />
+
+                        <span className="is-drawer-close:hidden">
+                          Assign Deliveries
+                        </span>
+                      </NavLink>
+                    </li>
+                    {/* completed deliveries */}
+
+                    <li>
+                      <NavLink
+                        to="/dashboard/completed-deliveries"
+                        end
+                        className={({ isActive }) =>
+                          `sidebar-link ${
+                            isActive ? "active" : ""
+                          } is-drawer-close:tooltip is-drawer-close:tooltip-right`
+                        }
+                        data-tip="Completed Deliveries"
+                      >
+                        <MdOutlineTaskAlt className="text-xl" />
+
+                        <span className="is-drawer-close:hidden">
+                          Completed Deliveries
+                        </span>
+                      </NavLink>
+                    </li>
+                  </>
+                )}
+
+                {/* admin only links */}
                 {role === "admin" && (
                   <>
                     {/* approve riders */}
@@ -130,6 +180,26 @@ const DashboardLayout = () => {
 
                         <span className="is-drawer-close:hidden">
                           Approve Riders
+                        </span>
+                      </NavLink>
+                    </li>
+                    {/* assign riders */}
+
+                    <li>
+                      <NavLink
+                        to="/dashboard/assign-riders"
+                        end
+                        className={({ isActive }) =>
+                          `sidebar-link ${
+                            isActive ? "active" : ""
+                          } is-drawer-close:tooltip is-drawer-close:tooltip-right`
+                        }
+                        data-tip="Assign Riders"
+                      >
+                        <MdOutlineAssignmentReturned className="text-xl" />
+
+                        <span className="is-drawer-close:hidden">
+                          Assign Riders
                         </span>
                       </NavLink>
                     </li>

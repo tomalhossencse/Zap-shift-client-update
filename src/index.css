@@ -1,30 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 
 @plugin "daisyui" {
-themes: light --default, dark --prefersdark;
+  themes:
+    light --default,
+    dark --prefersdark;
 }
-
 
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-base-200: #EAECED;
-  --color-base-300: #DADADA;
-  --color-primary: #CAEB66;
-  --color-secondary: #03373D;
+  --color-base-200: #eaeced;
+  --color-base-300: #dadada;
+  --color-primary: #caeb66;
+  --color-secondary: #03373d;
   --color-primary-content: #606060;
-  --color-secondary-content: #1F1F1F;
- --color-base-300: #e7e7e7;
-  --color-accent: #4D4D4D;
-   --color-accent-content: #F5F7FA;
+  --color-secondary-content: #1f1f1f;
+  --color-base-300: #e7e7e7;
+  --color-accent: #4d4d4d;
+  --color-accent-content: #f5f7fa;
 }
-
 
 body {
   font-family: "Urbanist", sans-serif;
 }
-
 
 .title {
   @apply text-3xl font-extrabold text-secondary;
@@ -39,9 +38,8 @@ body {
 }
 
 .navbar .active {
-  @apply text-secondary font-bold bg-primary rounded-2xl
+  @apply text-secondary font-bold bg-primary rounded-2xl;
 }
-p
-.btn-small {
-  @apply btn btn-sm bg-primary text-secondary rounded-md shadow-md hover:bg-black transition-transform hover:scale-105 hover:text-base-100
+p .btn-small {
+  @apply btn btn-sm bg-primary text-secondary rounded-md shadow-md hover:bg-black transition-transform hover:scale-105 hover:text-base-100;
 }
