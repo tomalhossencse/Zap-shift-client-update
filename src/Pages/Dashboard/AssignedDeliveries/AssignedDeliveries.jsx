@@ -3,12 +3,17 @@ import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../hooks/useAxios";
 import Swal from "sweetalert2";
+import Loading from "../../../Shared/Loading/Loading";
 
 const AssignedDeliveries = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const axiosSecure = useAxios();
 
-  const { data: parcels = [], refetch } = useQuery({
+  const {
+    data: parcels = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["parcels", user?.email, "rider_assigned"],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -23,6 +28,7 @@ const AssignedDeliveries = () => {
     const statusInfo = {
       deliveryStatus: status,
       riderId: parcel.riderId,
+      trackingId: parcel.trackingId,
     };
     const message = `parcel status is updated with ${status.split("_").join(" ")}`;
     axiosSecure
@@ -40,6 +46,9 @@ const AssignedDeliveries = () => {
         }
       });
   };
+  if (loading || isLoading) {
+    return <Loading />;
+  }
   return (
     <div className="p-6">
       <h1>Assigned Deliveries : {parcels.length}</h1>

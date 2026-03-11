@@ -43,6 +43,7 @@ const CompletedDeliveries = () => {
                 <th>Cost</th>
                 <th>Payout</th>
                 <th>Create Time</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -57,6 +58,11 @@ const CompletedDeliveries = () => {
                   <td>{parcel?.cost} tk</td>
                   <td>{calculatePayout(parcel)} tk</td>
                   <td>{DateFormat(parcel?.createAt)} </td>
+                  <td>
+                    <button className="btn btn-sm btn-primary">
+                      Cashout
+                    </button>{" "}
+                  </td>
                 </tr>
               ))}
             </tbody>

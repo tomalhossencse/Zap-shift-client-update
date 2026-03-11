@@ -6,14 +6,14 @@ const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const [paymentInfo, setPaymentInfo] = useState({});
   const sessionId = searchParams.get("session_id");
-  console.log(sessionId);
+  // console.log(sessionId);
 
   useEffect(() => {
     if (sessionId) {
       axiosSecure
         .patch(`/payment-success?session_id=${sessionId}`)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setPaymentInfo({
             transactionId: res.data.transactionId,
             trackingId: res.data.trackingId,
