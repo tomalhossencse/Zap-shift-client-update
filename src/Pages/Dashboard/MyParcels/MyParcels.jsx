@@ -9,8 +9,10 @@ import { Visibility, Delete, Edit } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import Swal from "sweetalert2";
 import Button from "@mui/material/Button";
+import { Link } from "react-router";
+import Loading from "../../../Shared/Loading/Loading";
 const MyParcels = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
   const axiosSecure = useAxios();
 
@@ -55,6 +57,7 @@ const MyParcels = () => {
       parcelName: parcel.parcelName,
       cost: parcel.cost,
       parcelId: parcel._id,
+      trackingId: parcel.trackingId,
     };
 
     const res = await axiosSecure.post(
@@ -64,6 +67,9 @@ const MyParcels = () => {
 
     window.location.assign(res.data.url);
   };
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div className="p-6">
       <h1>This is my parcel page.</h1>
@@ -79,6 +85,7 @@ const MyParcels = () => {
                 <th>Name</th>
                 <th>Cost</th>
                 <th>payment</th>
+                <th>TrackingId</th>
                 <th>DeliveryStatus</th>
                 <th>Actions</th>
               </tr>
@@ -89,6 +96,11 @@ const MyParcels = () => {
                   <th>{index + 1}</th>
                   <td>{parcel?.parcelName}</td>
                   <td>{parcel?.cost} tk</td>
+                  <td>
+                    <Link to={`/parcel-track/${parcel?.trackingId}`}>
+                      {parcel?.trackingId}
+                    </Link>
+                  </td>
                   <td>
                     {parcel.paymentStatus === "paid" ? (
                       <span className="text-green-500">Paid</span>

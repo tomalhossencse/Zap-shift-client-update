@@ -82,6 +82,7 @@ const SendParcel = () => {
       }
     }
     data.cost = cost;
+    data.deliveryStatus = "pending_payment";
     data.createAt = new Date();
 
     Swal.fire({
@@ -98,9 +99,11 @@ const SendParcel = () => {
           if (res.data.insertedId) {
             navigate("/dashboard/my-parcels");
             Swal.fire({
-              title: "Parcel Created!",
-              text: "Your Parcel has been created. Please Continue with pay.",
+              title: "Parcel Created!Please Continue with pay.",
+              position: "top-right",
               icon: "success",
+              timer: 1500,
+              showConfirmButton: false,
             });
           }
         });

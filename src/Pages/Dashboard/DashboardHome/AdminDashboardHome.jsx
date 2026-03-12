@@ -1,0 +1,85 @@
+import React from "react";
+import useAxios from "../../../hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
+import { Legend, Pie, PieChart, Tooltip } from "recharts";
+
+const AdminDashboardHome = () => {
+  const axiosSecure = useAxios();
+  const { data: deliveryStatusStats = [] } = useQuery({
+    queryKey: ["delivery-status-stats"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/parcels/delivery-status/stats");
+      return res.data;
+    },
+  });
+
+  const getPieChartData = (data) => {
+    return data.map((item) => ({
+      name: item.status.split("_").join(" "),
+      value: item.count,
+    }));
+  };
+  return (
+    <div className="p-6">
+      <h1>This Admin Dashboard</h1>
+
+      <div className="bg-base-100 w-fit rounded-xl">
+        <div className="stats shadow">
+          {deliveryStatusStats.map((stat) => (
+            <div key={stat._id} className="stat">
+              <div className="stat-figure text-secondary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="inline-block h-8 w-8 stroke-current"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </div>
+              <div className="stat-title">
+                {stat?.status.split("_").join(" ")}
+              </div>
+              <div className="stat-value">{stat?.count}</div>
+              <div className="stat-desc">Jan 1st - Feb 1st</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-base-100 w-full mt-10">
+        <PieChart
+          style={{
+            width: "100%",
+            maxWidth: "500px",
+            maxHeight: "80vh",
+            aspectRatio: 2,
+          }}
+          responsive
+        >
+          <Pie
+            dataKey="value"
+            startAngle={180}
+            endAngle={0}
+            data={getPieChartData(deliveryStatusStats)}
+            cx="50%"
+            cy="100%"
+            outerRadius="120%"
+            fill="#8884d8"
+            label
+            isAnimationActive={true}
+          />
+          <Legend></Legend>
+          <Tooltip></Tooltip>
+        </PieChart>
+      </div>
+    </div>
+  );
+};
+
+export default AdminDashboardHome;

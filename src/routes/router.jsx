@@ -12,7 +12,6 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import MyParcels from "../Pages/Dashboard/MyParcels/MyParcels";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import PaymentCancel from "../Pages/Dashboard/Payment/PaymentCancel";
-import PaymentSuccess from "../Pages/Dashboard/Payment/paymentSuccess";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import ApproveRiders from "../Pages/Dashboard/ApproveRiders/ApproveRiders";
 import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
@@ -21,6 +20,9 @@ import AssignRiders from "../Pages/Dashboard/AssignRiders/AssignRiders";
 import AssignedDeliveries from "../Pages/Dashboard/AssignedDeliveries/AssignedDeliveries";
 import RiderRoute from "./RiderRoute";
 import CompletedDeliveries from "../Pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
+import ParcelTrack from "../Pages/ParcelTrack/ParcelTrack";
+import PaymentSuccess from "../Pages/Dashboard/Payment/PaymentSuccess";
+import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 
 export const router = createBrowserRouter([
   {
@@ -32,7 +34,7 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "/beARider",
+        path: "beARider",
         element: (
           <PrivateRoute>
             <Rider />
@@ -41,7 +43,7 @@ export const router = createBrowserRouter([
         loader: () => fetch("/serviceCenters.json").then((res) => res.json()),
       },
       {
-        path: "/send-parcel",
+        path: "send-parcel",
         element: (
           <PrivateRoute>
             {" "}
@@ -51,9 +53,13 @@ export const router = createBrowserRouter([
         loader: () => fetch("/serviceCenters.json").then((res) => res.json()),
       },
       {
-        path: "/coverage",
+        path: "coverage",
         Component: Coverage,
         loader: () => fetch("/serviceCenters.json").then((res) => res.json()),
+      },
+      {
+        path: "parcel-track/:trackingId",
+        Component: ParcelTrack,
       },
     ],
   },
@@ -79,6 +85,10 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        index: true,
+        Component: DashboardHome,
+      },
       {
         path: "payment/:parcelId",
         Component: Payment,
