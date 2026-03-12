@@ -18,11 +18,12 @@ import {
 } from "react-icons/md";
 import { FaUsers } from "react-icons/fa6";
 import useRole from "../hooks/useRole";
+import Loading from "../Shared/Loading/Loading";
 const DashboardLayout = () => {
   const handleLogout = useLogout();
-  const { role, isLoading } = useRole();
-  if (isLoading) {
-    return;
+  const { role, isLoading, loading } = useRole();
+  if (isLoading || loading) {
+    return <Loading />;
   }
   return (
     <div className="drawer lg:drawer-open bg-base-200">

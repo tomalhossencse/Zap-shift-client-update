@@ -99,7 +99,8 @@ const SendParcel = () => {
           if (res.data.insertedId) {
             navigate("/dashboard/my-parcels");
             Swal.fire({
-              title: "Parcel Created!Please Continue with pay.",
+              title: "Parcel Created!",
+              text: "Please Continue with pay.",
               position: "top-right",
               icon: "success",
               timer: 1500,

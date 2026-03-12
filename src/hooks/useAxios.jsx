@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://zapshift-server-update.vercel.app",
 });
 const useAxios = () => {
   const { user, logOut } = useAuth();
